@@ -430,12 +430,21 @@
     border: 1px solid rgba(0,229,255,0.15);
     border-radius: 14px;
     transition: all 0.3s;
+    cursor: pointer;
+    user-select: none;
   }
 
   .region-item:hover {
     background: rgba(0,229,255,0.1);
     border-color: rgba(0,229,255,0.4);
     transform: translateY(-3px);
+  }
+
+  .region-item.active {
+    background: rgba(0,229,255,0.18);
+    border-color: rgba(0,229,255,0.7);
+    transform: translateY(-4px);
+    box-shadow: 0 0 22px rgba(0,229,255,0.25);
   }
 
   .region-flag { font-size: 28px; margin-bottom: 8px; }
@@ -448,6 +457,8 @@
     color: rgba(255,255,255,0.8);
     line-height: 1.3;
   }
+
+  .region-item.active .region-name { color: #00e5ff; }
 
   /* Leader badge */
   .region-item.leader {
@@ -902,31 +913,50 @@
   <div class="glass regions-card">
     <div class="section-title">Análisis Regional</div>
     <div class="regions-grid">
-      <div class="region-item leader" style="position:relative">
+      <div class="region-item leader active" style="position:relative" onclick="selectRegion(this,'asia')">
         <div class="leader-badge">Líder</div>
         <div class="region-flag">🌏</div>
         <div class="region-name">Asia<br>Pacífico</div>
       </div>
-      <div class="region-item">
+      <div class="region-item" onclick="selectRegion(this,'norteamerica')">
         <div class="region-flag">🌎</div>
         <div class="region-name">América<br>del Norte</div>
       </div>
-      <div class="region-item">
+      <div class="region-item" onclick="selectRegion(this,'europa')">
         <div class="region-flag">🌍</div>
         <div class="region-name">Europa</div>
       </div>
-      <div class="region-item">
+      <div class="region-item" onclick="selectRegion(this,'latam')">
         <div class="region-flag">🌎</div>
         <div class="region-name">América<br>Latina</div>
       </div>
-      <div class="region-item">
+      <div class="region-item" onclick="selectRegion(this,'mea')">
         <div class="region-flag">🌍</div>
         <div class="region-name">Medio Oriente<br>y África</div>
       </div>
     </div>
-    <p style="font-size:12px; color:rgba(255,255,255,0.5); margin-top:18px; line-height:1.5;">
-      <strong style="color:rgba(0,229,255,0.8)">Asia-Pacífico lidera el mercado</strong> — China, India y Japón encabezan la adopción por su gran población, rápida industrialización y creciente preocupación por la escasez de agua.
-    </p>
+
+    <!-- Dynamic info panel -->
+    <div id="region-panel" style="
+      margin-top: 20px;
+      background: rgba(0,229,255,0.06);
+      border: 1px solid rgba(0,229,255,0.2);
+      border-radius: 16px;
+      padding: 22px 24px;
+      transition: opacity 0.3s ease;
+    ">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">
+        <!-- Left: title + description -->
+        <div style="flex:1; min-width:200px;">
+          <div id="region-title" style="font-family:'Orbitron',sans-serif; font-size:14px; color:#00e5ff; margin-bottom:8px;"></div>
+          <div id="region-desc" style="font-size:13px; color:rgba(255,255,255,0.7); line-height:1.6;"></div>
+        </div>
+        <!-- Right: stats pills -->
+        <div id="region-stats" style="display:flex; flex-direction:column; gap:8px; min-width:180px;"></div>
+      </div>
+      <!-- Drivers -->
+      <div id="region-drivers" style="margin-top:14px; display:flex; flex-wrap:wrap; gap:8px;"></div>
+    </div>
   </div>
 
   <!-- MARKET DRIVERS -->
@@ -997,6 +1027,101 @@
 </div>
 
 <script>
+  // ── REGION DATA ──────────────────────────────
+  const regionData = {
+    asia: {
+      title: '🌏 Asia Pacífico — Líder del Mercado',
+      desc: 'China, India y Japón encabezan la adopción por su gran población y creciente preocupación por la escasez de agua. La rápida industrialización y urbanización generan alta demanda de fuentes sostenibles. Las condiciones extremas como sequías y monzones refuerzan el uso de AWG.',
+      stats: [
+        { label: 'Cuota de mercado', value: '#1 Global' },
+        { label: 'Países clave', value: 'China · India · Japón' },
+        { label: 'Motor principal', value: 'Urbanización acelerada' },
+      ],
+      drivers: ['Escasez hídrica severa', 'Inversión gubernamental', 'Mayor población mundial', 'Condiciones climáticas extremas']
+    },
+    norteamerica: {
+      title: '🌎 América del Norte',
+      desc: 'Estados Unidos y Canadá representan un mercado maduro con alta adopción en sectores comercial e industrial. El enfoque en sostenibilidad corporativa y la integración con energías renovables impulsan la demanda. Las zonas áridas del suroeste de EE.UU. son clave.',
+      stats: [
+        { label: 'Adopción', value: 'Alta — Sector Comercial' },
+        { label: 'Países clave', value: 'EE.UU. · Canadá · México' },
+        { label: 'Motor principal', value: 'Sostenibilidad corporativa' },
+      ],
+      drivers: ['Zonas áridas (suroeste EE.UU.)', 'Regulación ambiental estricta', 'Integración solar-AWG', 'Demanda off-grid']
+    },
+    europa: {
+      title: '🌍 Europa',
+      desc: 'Europa avanza con políticas medioambientales sólidas y una fuerte agenda de transición energética. Países del sur como España, Italia y Grecia experimentan mayor estrés hídrico. La integración con energías renovables y los estándares de calidad del agua son factores diferenciadores.',
+      stats: [
+        { label: 'Enfoque', value: 'Sostenibilidad & Regulación' },
+        { label: 'Países clave', value: 'España · Italia · Grecia' },
+        { label: 'Motor principal', value: 'Política medioambiental UE' },
+      ],
+      drivers: ['Estrés hídrico sur de Europa', 'Green Deal europeo', 'Alta conciencia ambiental', 'Estándares de calidad estrictos']
+    },
+    latam: {
+      title: '🌎 América Latina',
+      desc: 'Región con alto potencial de crecimiento. Brasil, México y Chile lideran la adopción. Amplias zonas con acceso limitado al agua potable y comunidades rurales dispersas crean una demanda creciente. Las iniciativas gubernamentales de acceso al agua potable aceleran la adopción.',
+      stats: [
+        { label: 'Potencial', value: 'Alto crecimiento' },
+        { label: 'Países clave', value: 'Brasil · México · Chile' },
+        { label: 'Motor principal', value: 'Acceso a agua rural' },
+      ],
+      drivers: ['Comunidades sin red hídrica', 'Programas gubernamentales', 'Zonas áridas (norte Chile/México)', 'Crecimiento de clase media']
+    },
+    mea: {
+      title: '🌍 Medio Oriente y África',
+      desc: 'Una de las regiones con mayor estrés hídrico del mundo. Los países del Golfo Pérsico invierten fuertemente en tecnologías de obtención de agua. En África subsahariana, los AWG representan una solución vital para comunidades sin infraestructura. La energía solar potencia su adopción.',
+      stats: [
+        { label: 'Urgencia', value: 'Muy Alta — Crítica' },
+        { label: 'Países clave', value: 'EAU · Arabia Saudita · Kenia' },
+        { label: 'Motor principal', value: 'Crisis hídrica extrema' },
+      ],
+      drivers: ['Mayor estrés hídrico del mundo', 'Inversión soberana del Golfo', 'AWG solar off-grid', 'Cooperación humanitaria ONU']
+    }
+  };
+
+  function selectRegion(el, key) {
+    // Update active state
+    document.querySelectorAll('.region-item').forEach(r => r.classList.remove('active'));
+    el.classList.add('active');
+
+    const d = regionData[key];
+    const panel = document.getElementById('region-panel');
+
+    // Fade out
+    panel.style.opacity = '0';
+    setTimeout(() => {
+      document.getElementById('region-title').textContent = d.title;
+      document.getElementById('region-desc').textContent = d.desc;
+
+      // Stats
+      const statsEl = document.getElementById('region-stats');
+      statsEl.innerHTML = d.stats.map(s => `
+        <div style="background:rgba(0,229,255,0.08); border:1px solid rgba(0,229,255,0.2); border-radius:10px; padding:8px 14px; text-align:right;">
+          <div style="font-size:13px; font-weight:700; color:#00e5ff;">${s.value}</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.5); margin-top:2px;">${s.label}</div>
+        </div>
+      `).join('');
+
+      // Driver tags
+      const driversEl = document.getElementById('region-drivers');
+      driversEl.innerHTML = d.drivers.map(dr => `
+        <span style="background:rgba(0,229,255,0.08); border:1px solid rgba(0,229,255,0.25); border-radius:20px; padding:5px 14px; font-size:11px; color:rgba(255,255,255,0.75);">
+          ${dr}
+        </span>
+      `).join('');
+
+      // Fade in
+      panel.style.opacity = '1';
+    }, 200);
+  }
+
+  // Initialize with Asia Pacific on load
+  window.addEventListener('DOMContentLoaded', () => {
+    selectRegion(document.querySelector('.region-item.active'), 'asia');
+  });
+
   // Generate floating water drops
   const container = document.getElementById('drops');
   for (let i = 0; i < 18; i++) {
