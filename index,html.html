@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generadores de Agua Atmosférica — Infografía 2035</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cyan: #00e5ff;
+    --cyan2: #00b4d8;
+    --blue-deep: #03045e;
+    --blue-mid: #023e8a;
+    --blue-light: #90e0ef;
+    --white: #ffffff;
+    --glass-bg: rgba(255,255,255,0.08);
+    --glass-border: rgba(0,229,255,0.25);
+    --glass-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    --glow: 0 0 20px rgba(0,229,255,0.4);
+  }
+
+  body {
+    background: linear-gradient(135deg, #020818 0%, #03045e 30%, #023e8a 60%, #0077b6 85%, #00b4d8 100%);
+    min-height: 100vh;
+    font-family: 'Rajdhani', sans-serif;
+    color: var(--white);
+    padding: 40px 20px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Animated background particles */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(0,229,255,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 60%, rgba(0,119,182,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 50% 90%, rgba(0,180,216,0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Glass card base */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    text-align: center;
+    padding: 50px 40px 40px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(0,229,255,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(0,229,255,0.15);
+    border: 1px solid rgba(0,229,255,0.4);
+    border-radius: 30px;
+    padding: 6px 20px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(22px, 4vw, 38px);
+    font-weight: 900;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #ffffff 0%, #00e5ff 50%, #90e0ef 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+  }
+
+  .hero-icon {
+    width: 80px; height: 80px;
+    margin: 0 auto 20px;
+    position: relative;
+  }
+
+  .hero-icon svg {
+    width: 100%; height: 100%;
+    filter: drop-shadow(0 0 15px rgba(0,229,255,0.6));
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  /* ===== MARKET STATS ===== */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .stat-card {
+    padding: 28px 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .stat-card:hover { transform: translateY(-4px); }
+
+  .stat-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 900;
+    color: var(--cyan);
+    text-shadow: 0 0 20px rgba(0,229,255,0.5);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-unit {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .stat-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+    filter: drop-shadow(0 0 8px rgba(0,229,255,0.5));
+  }
+
+  /* ===== SECTION TITLE ===== */
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0,229,255,0.4), transparent);
+  }
+
+  /* ===== HOW IT WORKS ===== */
+  .how-card {
+    padding: 36px 32px;
+    margin-bottom: 28px;
+  }
+
+  .steps-flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    position: relative;
+  }
+
+  .steps-flow::before {
+    content: '';
+    position: absolute;
+    top: 36px;
+    left: 12%;
+    right: 12%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--cyan), var(--cyan), transparent);
+    opacity: 0.4;
+  }
+
+  .step {
+    text-align: center;
+    padding: 16px 8px;
+    position: relative;
+  }
+
+  .step-num {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: rgba(0,229,255,0.12);
+    border: 2px solid rgba(0,229,255,0.4);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--cyan);
+    box-shadow: 0 0 15px rgba(0,229,255,0.2);
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-icon { font-size: 20px; }
+
+  .step-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .step-desc {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.4;
+  }
+
+  .step-arrow {
+    position: absolute;
+    right: -8px;
+    top: 36px;
+    font-size: 18px;
+    color: rgba(0,229,255,0.5);
+    z-index: 2;
+    transform: translateY(-50%);
+  }
+
+  /* ===== TYPES OF AWG ===== */
+  .types-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .type-card {
+    padding: 24px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .type-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--glass-shadow), 0 0 25px rgba(0,229,255,0.15);
+  }
+
+  .type-icon-wrap {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    background: rgba(0,229,255,0.1);
+    border: 1px solid rgba(0,229,255,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .type-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--cyan);
+    margin-bottom: 4px;
+  }
+
+  .type-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.4;
+  }
+
+  /* ===== MARKET CHART / GROWTH BAR ===== */
+  .market-card {
+    padding: 36px 32px;
+    margin-bottom: 28px;
+  }
+
+  .growth-bar-wrap {
+    margin: 24px 0 8px;
+  }
+
+  .growth-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .growth-label span:last-child {
+    color: var(--cyan);
+    font-weight: 700;
+  }
+
+  .bar-track {
+    height: 12px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #0077b6, #00b4d8, #00e5ff);
+    box-shadow: 0 0 12px rgba(0,229,255,0.5);
+    animation: barGrow 1.5s ease-out forwards;
+    width: 0%;
+  }
+
+  @keyframes barGrow {
+    to { width: var(--target-width); }
+  }
+
+  .year-markers {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -10px;
+  }
+
+  .year-marker {
+    text-align: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .year-marker strong {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    color: var(--white);
+  }
+
+  /* CAGR highlight */
+  .cagr-highlight {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+    padding: 18px 24px;
+    background: rgba(0,229,255,0.08);
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 14px;
+  }
+
+  .cagr-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--cyan);
+    text-shadow: 0 0 20px rgba(0,229,255,0.5);
+    line-height: 1;
+  }
+
+  .cagr-text { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.4; }
+  .cagr-text strong { color: var(--white); font-size: 16px; display: block; }
+
+  /* ===== REGIONS ===== */
+  .regions-card {
+    padding: 36px 32px;
+    margin-bottom: 28px;
+  }
+
+  .regions-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .region-item {
+    text-align: center;
+    padding: 16px 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(0,229,255,0.15);
+    border-radius: 14px;
+    transition: all 0.3s;
+  }
+
+  .region-item:hover {
+    background: rgba(0,229,255,0.1);
+    border-color: rgba(0,229,255,0.4);
+    transform: translateY(-3px);
+  }
+
+  .region-flag { font-size: 28px; margin-bottom: 8px; }
+
+  .region-name {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.3;
+  }
+
+  /* Leader badge */
+  .region-item.leader {
+    border-color: rgba(0,229,255,0.5);
+    background: rgba(0,229,255,0.1);
+    position: relative;
+  }
+
+  .leader-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #00b4d8, #00e5ff);
+    color: #020818;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  /* ===== APPLICATIONS & SECTORS ===== */
+  .apps-card {
+    padding: 36px 32px;
+    margin-bottom: 28px;
+  }
+
+  .apps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .app-pill {
+    padding: 18px 14px;
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(0,229,255,0.18);
+    border-radius: 14px;
+    transition: all 0.3s;
+  }
+
+  .app-pill:hover {
+    background: rgba(0,229,255,0.1);
+    border-color: rgba(0,229,255,0.45);
+  }
+
+  .app-icon { font-size: 28px; margin-bottom: 8px; }
+  .app-name { font-size: 13px; font-weight: 700; color: var(--white); }
+  .app-sub { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 3px; }
+
+  /* ===== DRIVERS ===== */
+  .drivers-card {
+    padding: 36px 32px;
+    margin-bottom: 28px;
+  }
+
+  .driver-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .driver-row:last-child { border-bottom: none; }
+
+  .driver-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 10px rgba(0,229,255,0.6);
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  .driver-title { font-size: 14px; font-weight: 700; color: var(--cyan); margin-bottom: 4px; }
+  .driver-desc { font-size: 12.5px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+  /* ===== COMPANIES ===== */
+  .companies-card {
+    padding: 36px 32px;
+    margin-bottom: 28px;
+  }
+
+  .companies-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .company-tag {
+    padding: 8px 18px;
+    background: rgba(0,229,255,0.07);
+    border: 1px solid rgba(0,229,255,0.22);
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    transition: all 0.3s;
+    cursor: default;
+  }
+
+  .company-tag:hover {
+    background: rgba(0,229,255,0.15);
+    border-color: rgba(0,229,255,0.5);
+    color: var(--cyan);
+  }
+
+  /* ===== IMPACT QUOTE ===== */
+  .impact-card {
+    padding: 44px 40px;
+    text-align: center;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(0,229,255,0.06);
+    border-color: rgba(0,229,255,0.3);
+  }
+
+  .impact-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 20px;
+    font-size: 140px;
+    font-family: Georgia, serif;
+    color: rgba(0,229,255,0.08);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .impact-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(36px, 7vw, 64px);
+    font-weight: 900;
+    color: var(--cyan);
+    text-shadow: 0 0 30px rgba(0,229,255,0.5);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .impact-text {
+    font-size: 16px;
+    color: rgba(255,255,255,0.8);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .impact-source {
+    margin-top: 16px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ===== SEGMENTS ===== */
+  .segments-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .segment-card {
+    padding: 28px 24px;
+  }
+
+  .seg-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .seg-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: rgba(0,229,255,0.12);
+    border: 1px solid rgba(0,229,255,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .seg-title { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 1px; color: var(--cyan); }
+
+  .seg-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .seg-item:last-child { border-bottom: none; }
+
+  .seg-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 1px;
+  }
+
+  /* Floating water drops */
+  .drops-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .drop {
+    position: absolute;
+    width: 6px; height: 8px;
+    background: rgba(0,229,255,0.15);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: dropFall linear infinite;
+    top: -20px;
+  }
+
+  @keyframes dropFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.5; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  @media (max-width: 600px) {
+    .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .steps-flow { grid-template-columns: repeat(2, 1fr); }
+    .steps-flow::before { display: none; }
+    .types-grid { grid-template-columns: 1fr; }
+    .regions-grid { grid-template-columns: repeat(3, 1fr); }
+    .apps-grid { grid-template-columns: repeat(3, 1fr); }
+    .segments-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating drops background -->
+<div class="drops-container" id="drops"></div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="glass hero">
+    <div class="hero-badge">Informe de Mercado Global 2026–2035</div>
+    <div class="hero-icon">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="40" cy="60" rx="18" ry="8" fill="rgba(0,229,255,0.15)"/>
+        <path d="M40 10 C40 10 20 35 20 50 C20 61 29 68 40 68 C51 68 60 61 60 50 C60 35 40 10 40 10Z" fill="rgba(0,229,255,0.2)" stroke="#00e5ff" stroke-width="2"/>
+        <path d="M32 48 C32 48 33 56 40 56 C47 56 48 48 48 48" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <circle cx="22" cy="28" r="3" fill="rgba(0,229,255,0.4)"/>
+        <circle cx="58" cy="22" r="2" fill="rgba(0,229,255,0.3)"/>
+        <circle cx="15" cy="45" r="2" fill="rgba(0,229,255,0.25)"/>
+        <circle cx="65" cy="42" r="2.5" fill="rgba(0,229,255,0.3)"/>
+        <path d="M22 28 Q28 35 30 42" stroke="rgba(0,229,255,0.3)" stroke-width="1" stroke-dasharray="2,3" fill="none"/>
+        <path d="M58 22 Q54 32 52 40" stroke="rgba(0,229,255,0.3)" stroke-width="1" stroke-dasharray="2,3" fill="none"/>
+        <path d="M10 20 Q16 14 24 18" stroke="rgba(144,224,239,0.4)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <path d="M50 8 Q58 6 62 14" stroke="rgba(144,224,239,0.4)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+    <h1>Generadores de Agua<br>Atmosférica (AWG)</h1>
+    <p class="hero-sub">Dispositivos que extraen la humedad del aire para producir agua potable mediante condensación — una solución descentralizada y sostenible ante la crisis global del agua.</p>
+  </div>
+
+  <!-- MARKET STATS -->
+  <div class="stats-grid">
+    <div class="glass stat-card">
+      <span class="stat-icon">💧</span>
+      <div class="stat-number">$3.38B</div>
+      <div class="stat-unit">USD</div>
+      <div class="stat-label">Valor del Mercado 2025</div>
+    </div>
+    <div class="glass stat-card">
+      <span class="stat-icon">🚀</span>
+      <div class="stat-number">$11.43B</div>
+      <div class="stat-unit">USD</div>
+      <div class="stat-label">Proyección 2035</div>
+    </div>
+    <div class="glass stat-card">
+      <span class="stat-icon">📈</span>
+      <div class="stat-number">14.5%</div>
+      <div class="stat-unit">CAGR</div>
+      <div class="stat-label">Crecimiento Anual 2026–2035</div>
+    </div>
+  </div>
+
+  <!-- GROWTH PROJECTION -->
+  <div class="glass market-card">
+    <div class="section-title">Proyección de Crecimiento del Mercado</div>
+
+    <div class="growth-bar-wrap">
+      <div class="growth-label"><span>Mercado 2025</span><span>USD 3.38 mil millones</span></div>
+      <div class="bar-track"><div class="bar-fill" style="--target-width: 30%"></div></div>
+      <div class="growth-label"><span>Proyección 2030</span><span>~USD 6.7 mil millones</span></div>
+      <div class="bar-track"><div class="bar-fill" style="--target-width: 59%; animation-delay: 0.2s"></div></div>
+      <div class="growth-label"><span>Proyección 2035</span><span>USD 11.43 mil millones</span></div>
+      <div class="bar-track"><div class="bar-fill" style="--target-width: 100%; animation-delay: 0.4s"></div></div>
+    </div>
+
+    <div class="cagr-highlight">
+      <div class="cagr-num">14.5%</div>
+      <div>
+        <div class="cagr-text"><strong>CAGR 2026–2035</strong>El mercado se triplicará en una década impulsado por escasez hídrica, energías renovables y avances tecnológicos.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="glass how-card">
+    <div class="section-title">¿Cómo Funciona?</div>
+    <div class="steps-flow">
+      <div class="step">
+        <div class="step-num"><span class="step-icon">🌬️</span></div>
+        <div class="step-title">Captación</div>
+        <div class="step-desc">Ventilador absorbe aire húmedo del ambiente atmosférico</div>
+        <div class="step-arrow">›</div>
+      </div>
+      <div class="step">
+        <div class="step-num"><span class="step-icon">❄️</span></div>
+        <div class="step-title">Condensación</div>
+        <div class="step-desc">Bobinas refrigerantes enfrían el aire causando condensación</div>
+        <div class="step-arrow">›</div>
+      </div>
+      <div class="step">
+        <div class="step-num"><span class="step-icon">🔬</span></div>
+        <div class="step-title">Filtración</div>
+        <div class="step-desc">Filtros de carbón, UV y mineralización purifican el agua</div>
+        <div class="step-arrow">›</div>
+      </div>
+      <div class="step">
+        <div class="step-num"><span class="step-icon">✅</span></div>
+        <div class="step-title">Agua Potable</div>
+        <div class="step-desc">Almacenamiento y dispensado de agua limpia y segura</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPES OF AWG -->
+  <div class="section-title" style="padding: 0 4px; margin-bottom: 14px;">Tipos de Tecnología AWG</div>
+  <div class="types-grid">
+    <div class="glass type-card">
+      <div class="type-icon-wrap">🧊</div>
+      <div>
+        <div class="type-title">Condensación por Refrigeración</div>
+        <div class="type-desc">Sistema más común. Ideal para uso residencial, comercial e industrial. Alta eficiencia en ambientes con humedad moderada-alta.</div>
+      </div>
+    </div>
+    <div class="glass type-card">
+      <div class="type-icon-wrap">🧲</div>
+      <div>
+        <div class="type-title">Desecación Húmeda</div>
+        <div class="type-desc">Tecnología avanzada para zonas áridas. Utiliza materiales desecantes para capturar vapor de agua con menor consumo energético.</div>
+      </div>
+    </div>
+    <div class="glass type-card">
+      <div class="type-icon-wrap">☁️</div>
+      <div>
+        <div class="type-title">Captación de Niebla</div>
+        <div class="type-desc">Sistema pasivo sin electricidad. Mallas especiales capturan gotitas de niebla, ideal para zonas costeras y montañosas.</div>
+      </div>
+    </div>
+    <div class="glass type-card">
+      <div class="type-icon-wrap">☀️</div>
+      <div>
+        <div class="type-title">Solar / Híbrido</div>
+        <div class="type-desc">Integración con energía solar para producción off-grid. Refuerza la sostenibilidad y es clave para zonas rurales sin red eléctrica.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEGMENTS -->
+  <div class="segments-grid">
+    <div class="glass segment-card">
+      <div class="seg-header">
+        <div class="seg-icon">⚗️</div>
+        <div class="seg-title">Por Producto</div>
+      </div>
+      <div class="seg-item"><div class="seg-dot"></div>Condensación por Refrigeración</div>
+      <div class="seg-item"><div class="seg-dot"></div>Desecación Húmeda</div>
+    </div>
+    <div class="glass segment-card">
+      <div class="seg-header">
+        <div class="seg-icon">🏭</div>
+        <div class="seg-title">Por Aplicación</div>
+      </div>
+      <div class="seg-item"><div class="seg-dot"></div>Industrial</div>
+      <div class="seg-item"><div class="seg-dot"></div>Comercial</div>
+      <div class="seg-item"><div class="seg-dot"></div>Residencial</div>
+    </div>
+  </div>
+
+  <!-- APPLICATIONS -->
+  <div class="glass apps-card">
+    <div class="section-title">Sectores de Aplicación</div>
+    <div class="apps-grid">
+      <div class="app-pill">
+        <div class="app-icon">🏠</div>
+        <div class="app-name">Residencial</div>
+        <div class="app-sub">Hogares y apartamentos</div>
+      </div>
+      <div class="app-pill">
+        <div class="app-icon">🏨</div>
+        <div class="app-name">Hoteles</div>
+        <div class="app-sub">Sector hospitalario</div>
+      </div>
+      <div class="app-pill">
+        <div class="app-icon">🏢</div>
+        <div class="app-name">Oficinas</div>
+        <div class="app-sub">Sector comercial</div>
+      </div>
+      <div class="app-pill">
+        <div class="app-icon">🌾</div>
+        <div class="app-name">Agricultura</div>
+        <div class="app-sub">Riego de precisión</div>
+      </div>
+      <div class="app-pill">
+        <div class="app-icon">🏭</div>
+        <div class="app-name">Industrial</div>
+        <div class="app-sub">Manufactura y procesos</div>
+      </div>
+      <div class="app-pill">
+        <div class="app-icon">🆘</div>
+        <div class="app-name">Emergencias</div>
+        <div class="app-sub">Zonas de desastre</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGIONS -->
+  <div class="glass regions-card">
+    <div class="section-title">Análisis Regional</div>
+    <div class="regions-grid">
+      <div class="region-item leader" style="position:relative">
+        <div class="leader-badge">Líder</div>
+        <div class="region-flag">🌏</div>
+        <div class="region-name">Asia<br>Pacífico</div>
+      </div>
+      <div class="region-item">
+        <div class="region-flag">🌎</div>
+        <div class="region-name">América<br>del Norte</div>
+      </div>
+      <div class="region-item">
+        <div class="region-flag">🌍</div>
+        <div class="region-name">Europa</div>
+      </div>
+      <div class="region-item">
+        <div class="region-flag">🌎</div>
+        <div class="region-name">América<br>Latina</div>
+      </div>
+      <div class="region-item">
+        <div class="region-flag">🌍</div>
+        <div class="region-name">Medio Oriente<br>y África</div>
+      </div>
+    </div>
+    <p style="font-size:12px; color:rgba(255,255,255,0.5); margin-top:18px; line-height:1.5;">
+      <strong style="color:rgba(0,229,255,0.8)">Asia-Pacífico lidera el mercado</strong> — China, India y Japón encabezan la adopción por su gran población, rápida industrialización y creciente preocupación por la escasez de agua.
+    </p>
+  </div>
+
+  <!-- MARKET DRIVERS -->
+  <div class="glass drivers-card">
+    <div class="section-title">Factores que Impulsan el Crecimiento</div>
+    <div class="driver-row">
+      <div class="driver-dot"></div>
+      <div>
+        <div class="driver-title">Crisis Global de Escasez de Agua</div>
+        <div class="driver-desc">Múltiples regiones enfrentan grave escasez hídrica. La demanda de fuentes alternativas de agua limpia impulsa la adopción masiva de AWG a nivel mundial.</div>
+      </div>
+    </div>
+    <div class="driver-row">
+      <div class="driver-dot"></div>
+      <div>
+        <div class="driver-title">Sostenibilidad Medioambiental</div>
+        <div class="driver-desc">Los AWG reducen la dependencia de fuentes tradicionales, disminuyen la presión sobre el agua dulce y minimizan la necesidad de transporte y distribución.</div>
+      </div>
+    </div>
+    <div class="driver-row">
+      <div class="driver-dot"></div>
+      <div>
+        <div class="driver-title">Avances Tecnológicos y Precios en Caída</div>
+        <div class="driver-desc">Técnicas de condensación mejoradas, componentes eficientes y sistemas escalables hacen los AWG más accesibles para múltiples sectores.</div>
+      </div>
+    </div>
+    <div class="driver-row">
+      <div class="driver-dot"></div>
+      <div>
+        <div class="driver-title">Políticas Gubernamentales Favorables</div>
+        <div class="driver-desc">Gobiernos de varios países invierten en infraestructuras hídricas e implementan normas para el desarrollo de AWG ante el aumento del acceso al agua potable.</div>
+      </div>
+    </div>
+    <div class="driver-row">
+      <div class="driver-dot"></div>
+      <div>
+        <div class="driver-title">Integración con Energías Renovables</div>
+        <div class="driver-desc">La combinación AWG + energía solar permite producción de agua fuera de la red (off-grid), consolidando el sector y mejorando la sostenibilidad.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPANIES -->
+  <div class="glass companies-card">
+    <div class="section-title">Principales Actores del Mercado</div>
+    <div class="companies-wrap">
+      <div class="company-tag">Akvo Atmospheric Water Systems</div>
+      <div class="company-tag">Dew Point Manufacturing</div>
+      <div class="company-tag">Saisons Trade & Industry</div>
+      <div class="company-tag">WaterMaker India</div>
+      <div class="company-tag">PlanetsWater</div>
+      <div class="company-tag">Water Technologies Int. (WTII)</div>
+      <div class="company-tag">SkyWater Air Water Machines</div>
+    </div>
+  </div>
+
+  <!-- IMPACT QUOTE -->
+  <div class="glass impact-card">
+    <div class="impact-num">2,200M</div>
+    <p class="impact-text">personas en el mundo carecen de acceso seguro a agua potable — los Generadores de Agua Atmosférica representan una solución descentralizada y sostenible.</p>
+    <div class="impact-source">Fuente: ONU / WHO · Datos del Mercado: Informes de Expertos 2026</div>
+  </div>
+
+  <div class="footer">
+    Datos basados en: Informe del Mercado Global de Generador de Agua Atmosférica 2026–2035 · Informes de Expertos (EMR)
+  </div>
+
+</div>
+
+<script>
+  // Generate floating water drops
+  const container = document.getElementById('drops');
+  for (let i = 0; i < 18; i++) {
+    const drop = document.createElement('div');
+    drop.className = 'drop';
+    drop.style.left = Math.random() * 100 + '%';
+    drop.style.animationDuration = (8 + Math.random() * 14) + 's';
+    drop.style.animationDelay = (Math.random() * 12) + 's';
+    drop.style.width = (4 + Math.random() * 5) + 'px';
+    drop.style.height = (6 + Math.random() * 7) + 'px';
+    drop.style.opacity = 0.1 + Math.random() * 0.3;
+    container.appendChild(drop);
+  }
+
+  // Animate bars on scroll/load
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animationPlayState = 'running';
+      }
+    });
+  });
+
+  document.querySelectorAll('.bar-fill').forEach(bar => {
+    bar.style.animationPlayState = 'paused';
+    observer.observe(bar);
+  });
+</script>
+</body>
+</html>
